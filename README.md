@@ -1,73 +1,124 @@
-# Welcome to your Lovable project
+# Dallas Air Experts
 
-## Project info
+Marketing & lead-generation website for a Dallas-Fort Worth HVAC company. Built with React, Tailwind CSS, and Supabase.
 
-**URL**: https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID
+## Live Site
 
-## How can I edit this code?
+Deployed at: https://dallasairexperts.com
 
-There are several ways of editing your application.
+## Tech Stack
 
-**Use Lovable**
+- **Frontend:** React 18, TypeScript, Vite 5, Tailwind CSS 3
+- **UI:** shadcn/ui (minimal subset), Lucide icons
+- **Forms:** react-hook-form + Zod validation
+- **Backend:** Supabase (PostgreSQL + REST API)
+- **SEO:** react-helmet-async, JSON-LD structured data
+- **Testing:** Vitest + React Testing Library
+- **CI/CD:** GitHub Actions
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID) and start prompting.
+## Getting Started
 
-Changes made via Lovable will be committed automatically to this repo.
+```bash
+# Install dependencies
+npm install
 
-**Use your preferred IDE**
+# Copy environment variables
+cp .env.example .env
+# Edit .env with your Supabase credentials
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
-
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
-
-Follow these steps:
-
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
-
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
-
-# Step 3: Install the necessary dependencies.
-npm i
-
-# Step 4: Start the development server with auto-reloading and an instant preview.
+# Start dev server
 npm run dev
 ```
 
-**Edit a file directly in GitHub**
+## Environment Variables
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+| Variable | Description |
+|----------|-------------|
+| `VITE_SUPABASE_URL` | Supabase project URL |
+| `VITE_SUPABASE_ANON_KEY` | Supabase anon (public) key |
+| `VITE_GA_MEASUREMENT_ID` | Google Analytics 4 ID (optional) |
 
-**Use GitHub Codespaces**
+**Note:** The anon key is safe to expose client-side — it only allows inserts to the `leads` table. Row Level Security controls access.
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
+## Scripts
 
-## What technologies are used for this project?
+```bash
+npm run dev        # Start development server (port 8080)
+npm run build      # Production build
+npm run preview    # Preview production build
+npm run lint       # ESLint
+npm run test       # Run tests
+npm run test:watch # Watch mode
+```
 
-This project is built with:
+## Project Structure
 
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
+```
+src/
+├── components/
+│   ├── ui/            # shadcn/ui primitives (button, tooltip, sonner)
+│   ├── ErrorBoundary  # Crash recovery
+│   ├── SEO            # Per-page meta tags
+│   ├── StructuredData # JSON-LD schema
+│   ├── Navbar         # Site navigation with skip-nav
+│   ├── Footer         # Site footer
+│   ├── QuoteForm      # Lead capture form → Supabase
+│   ├── EmergencyBanner# CTA banner
+│   └── ServicePageLayout # Reusable service page template
+├── lib/
+│   ├── constants.ts   # Business info (phone, email, etc.)
+│   ├── supabase.ts    # Supabase client
+│   └── utils.ts       # Tailwind cn() helper
+├── pages/             # Route components (code-split)
+└── test/              # Test files
+supabase/
+└── migrations/        # Database schema
+```
 
-## How can I deploy this project?
+## Database
 
-Simply open [Lovable](https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID) and click on Share -> Publish.
+The `leads` table stores form submissions:
 
-## Can I connect a custom domain to my Lovable project?
+| Column | Type | Description |
+|--------|------|-------------|
+| id | UUID | Primary key |
+| name | VARCHAR(100) | Customer name |
+| phone | VARCHAR(20) | Phone number |
+| email | VARCHAR(255) | Email address |
+| service | VARCHAR(50) | Service type requested |
+| message | TEXT | Optional description |
+| source_page | VARCHAR(100) | Which page submitted from |
+| status | VARCHAR(20) | Lead status (new/contacted/won/lost) |
+| created_at | TIMESTAMPTZ | Submission timestamp |
 
-Yes, you can!
+### Applying migrations
 
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
+```bash
+supabase link --project-ref <your-project-ref>
+echo "Y" | supabase db push
+```
 
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/features/custom-domain#custom-domain)
+## Deployment
+
+### Vercel
+```bash
+# vercel.json handles SPA routing automatically
+vercel --prod
+```
+
+Set environment variables in Vercel dashboard → Settings → Environment Variables.
+
+### Netlify
+The `public/_redirects` file handles SPA routing. Set env vars in site settings.
+
+## Security Notes
+
+- `.env` is gitignored and never committed
+- Supabase anon key is public-safe (only allows INSERT to leads)
+- No service_role key is exposed client-side
+- Form inputs have maxLength and Zod validation
+- RLS is disabled on leads table (acceptable for a write-only public form)
+
+## License
+
+Private. All rights reserved.
