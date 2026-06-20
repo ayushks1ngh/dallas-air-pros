@@ -3,24 +3,25 @@ import maintenanceImg from "@/assets/maintenance.jpg";
 
 const HVACMaintenance = () => (
   <ServicePageLayout
-    title="HVAC Maintenance Plans"
+    title="HVAC Maintenance Plans in Dallas"
     subtitle="Preventive Maintenance"
-    description="Regular maintenance extends the life of your HVAC system, improves efficiency, and prevents costly breakdowns. Join our maintenance plan and save."
+    description="Regular HVAC maintenance extends your system's life, improves efficiency, and prevents costly breakdowns. Join our maintenance plan for priority service."
     image={maintenanceImg}
+    path="/hvac-maintenance"
     features={[
-      "Comprehensive system inspection",
+      "Bi-annual system tune-ups",
       "Filter replacement and cleaning",
-      "Coil and drain line cleaning",
-      "Electrical connection tightening",
-      "Refrigerant level checks",
-      "Performance efficiency testing",
+      "Refrigerant level check",
+      "Electrical connection inspection",
+      "Thermostat calibration",
+      "Full system performance report",
     ]}
     benefits={[
+      "Up to 30% energy savings",
       "Priority scheduling for plan members",
       "15% discount on all repairs",
-      "Extended equipment lifespan",
-      "Lower energy bills year-round",
-      "Peace of mind with regular check-ups",
+      "Extends equipment lifespan by years",
+      "No overtime charges for members",
     ]}
   />
 );

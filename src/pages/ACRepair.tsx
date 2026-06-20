@@ -7,6 +7,7 @@ const ACRepair = () => (
     subtitle="Air Conditioning Repair"
     description="Is your AC blowing warm air or making strange noises? Our certified technicians diagnose and fix all makes and models quickly, getting your home cool again fast."
     image={acRepairImg}
+    path="/ac-repair"
     features={[
       "Same-day and emergency AC repair service",
       "All major AC brands serviced",

@@ -4,23 +4,24 @@ import heatingImg from "@/assets/heating-repair.jpg";
 const HeatingRepair = () => (
   <ServicePageLayout
     title="Heating Repair Services in Dallas"
-    subtitle="Furnace & Heating Repair"
-    description="Don't let a broken heater leave you in the cold. Our heating experts repair furnaces, heat pumps, and all heating systems to keep your family warm and safe."
+    subtitle="Heating System Repair"
+    description="Stay warm through Texas winters with reliable heating repair. We service furnaces, heat pumps, and all heating systems with same-day availability."
     image={heatingImg}
+    path="/heating-repair"
     features={[
-      "Furnace and heat pump repair",
-      "Pilot light and ignition system repair",
-      "Heat exchanger inspection",
-      "Blower motor and fan repairs",
-      "Gas line safety inspections",
-      "Carbon monoxide testing",
+      "Furnace repair and troubleshooting",
+      "Heat pump diagnostics and repair",
+      "Pilot light and ignition repair",
+      "Blower motor and fan repair",
+      "Gas leak detection and repair",
+      "Complete system diagnostics",
     ]}
     benefits={[
-      "24/7 emergency heating repair service",
-      "All brands and models serviced",
-      "Safety-first approach with thorough inspections",
-      "Transparent pricing before work begins",
-      "Fast, same-day service available",
+      "Same-day service in most cases",
+      "All work backed by warranty",
+      "Transparent, upfront pricing",
+      "Certified heating specialists",
+      "24/7 emergency availability",
     ]}
   />
 );
