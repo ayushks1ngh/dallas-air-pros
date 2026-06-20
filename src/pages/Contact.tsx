@@ -1,20 +1,18 @@
 import { Phone, Mail, MapPin, Clock } from "lucide-react";
 import QuoteForm from "@/components/QuoteForm";
+import SEO from "@/components/SEO";
+import { BUSINESS } from "@/lib/constants";
 
 const Contact = () => (
   <>
+    <SEO title="Contact Us" description="Ready to schedule HVAC service or get a free quote? Contact Dallas Air Experts by phone, email, or online form. 24/7 emergency service available." path="/contact" />
     <section className="bg-secondary py-16 md:py-24">
       <div className="container text-center">
         <p className="text-primary font-semibold text-sm uppercase tracking-wider mb-3">Get In Touch</p>
-        <h1 className="font-heading font-extrabold text-3xl md:text-5xl text-foreground mb-6">
-          Contact Dallas Air Experts
-        </h1>
-        <p className="text-muted-foreground max-w-2xl mx-auto">
-          Ready to schedule service or have questions? Reach out by phone, email, or fill out the form below.
-        </p>
+        <h1 className="font-heading font-extrabold text-3xl md:text-5xl text-foreground mb-6">Contact {BUSINESS.name}</h1>
+        <p className="text-muted-foreground max-w-2xl mx-auto">Ready to schedule service or have questions? Reach out by phone, email, or fill out the form below.</p>
       </div>
     </section>
-
     <section className="py-16 md:py-24">
       <div className="container">
         <div className="grid lg:grid-cols-2 gap-12">
@@ -22,14 +20,14 @@ const Contact = () => (
             <h2 className="font-heading font-bold text-2xl text-foreground mb-8">Contact Information</h2>
             <div className="space-y-6">
               {[
-                { icon: Phone, label: "Phone", value: "(214) 555-1234", href: "tel:+12145551234" },
-                { icon: Mail, label: "Email", value: "info@dallasairexperts.com", href: "mailto:info@dallasairexperts.com" },
-                { icon: MapPin, label: "Location", value: "Dallas, Texas", href: undefined },
+                { icon: Phone, label: "Phone", value: BUSINESS.phone, href: BUSINESS.phoneHref },
+                { icon: Mail, label: "Email", value: BUSINESS.email, href: `mailto:${BUSINESS.email}` },
+                { icon: MapPin, label: "Location", value: BUSINESS.address, href: undefined },
                 { icon: Clock, label: "Hours", value: "24/7 Emergency Service Available", href: undefined },
               ].map((item) => (
                 <div key={item.label} className="flex items-start gap-4">
                   <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center shrink-0">
-                    <item.icon className="w-5 h-5 text-primary" />
+                    <item.icon className="w-5 h-5 text-primary" aria-hidden="true" />
                   </div>
                   <div>
                     <p className="text-sm text-muted-foreground">{item.label}</p>
@@ -42,7 +40,6 @@ const Contact = () => (
                 </div>
               ))}
             </div>
-
             <div className="mt-10">
               <h3 className="font-heading font-bold text-lg text-foreground mb-3">Business Hours</h3>
               <div className="space-y-2 text-sm">
@@ -52,8 +49,7 @@ const Contact = () => (
               </div>
             </div>
           </div>
-
-          <QuoteForm />
+          <QuoteForm sourcePage="contact" />
         </div>
       </div>
     </section>
