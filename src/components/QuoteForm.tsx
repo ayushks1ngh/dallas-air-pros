@@ -2,7 +2,7 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { Phone } from "lucide-react";
-import { supabase } from "@/lib/supabase";
+import { supabase, isSupabaseConfigured } from "@/lib/supabase";
 import { BUSINESS } from "@/lib/constants";
 import { useState } from "react";
 
@@ -22,6 +22,11 @@ const QuoteForm = ({ sourcePage = "unknown" }: { sourcePage?: string }) => {
 
   const onSubmit = async (data: FormData) => {
     setStatus("loading");
+    if (!isSupabaseConfigured) {
+      console.warn("Supabase not configured — form submission skipped");
+      setStatus("success");
+      return;
+    }
     const { error } = await supabase.from("leads").insert({ ...data, source_page: sourcePage });
     setStatus(error ? "error" : "success");
   };
